@@ -35,12 +35,37 @@
 (add-hook 'go-mode-hook #'setup-go-lsp)
 
 ;; Rust setup
+(setq lsp-rust-analyzer-server-command '("rust-analyzer"))
+
+;; Optional: Additional rust-analyzer configuration
+(setq lsp-rust-analyzer-cargo-watch-command "clippy")
+(setq lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+(setq lsp-rust-analyzer-display-chaining-hints t)
+(setq lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+(setq lsp-rust-analyzer-display-closure-return-type-hints t)
+(setq lsp-rust-analyzer-display-parameter-hints nil)
+(setq lsp-rust-analyzer-display-reborrow-hints nil)
+
+;; Function to set up `lsp-mode` for Rust
 (defun setup-rust-lsp ()
   "Set up `lsp-mode` for Rust."
   (when (derived-mode-p 'rust-mode)
-    (require 'lsp-rust)  ;; Ensure `lsp-rust` is loaded
-    (setq lsp-rust-server 'rust-analyzer)
     (lsp)))  ;; Start the LSP server
-(add-hook 'rust-mode-hook #'setup-rust-lsp)
+
+;; Add `setup-rust-lsp` to `rust-mode-hook`
+(add-hook 'rust-mode-hook 'setup-rust-lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-peek-always-show t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-doc-enable t) 
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-delay 0.3))
+
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
 
 (provide 'user-init-lsp-mode)

@@ -4,8 +4,7 @@
 (scroll-bar-mode -1)
 (global-hl-line-mode t)
 
-(setq my-keymap (make-sparse-keymap))
-(define-key my-keymap (kbd "C-c") 'other-command)
-(global-set-key (kbd "C-c") 'my-keymap)
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 
 (provide 'user-init-default)
