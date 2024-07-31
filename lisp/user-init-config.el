@@ -2,6 +2,7 @@
 			company-restclient
 			company-flow
 			company-anaconda
+			magit
 			flymake
 			flycheck
                         flycheck-color-mode-line
